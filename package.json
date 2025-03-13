@@ -1,0 +1,19 @@
+{
+  "name": "contest-boilerplate",
+  "version": "1.0.0",
+  "description": "Contest Boilerplate",
+  "main": "index.js",
+  "scripts": {
+    "start": "ts-node index.ts",
+    "build": "tsc"
+  },
+  "packageManager": "npm@6.14.15",
+  "author": "Nik Cherednik <ighosta9@gmail.com>",
+  "license": "ISC",
+  "devDependencies": {
+    "@tsconfig/node12": "^12.1.4",
+    "nodemon": "^3.1.9",
+    "ts-node": "^10.9.2",
+    "typescript": "^5.8.2"
+  }
+}
