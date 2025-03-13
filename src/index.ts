@@ -1,63 +1,75 @@
-// import * as readline from "readline";
+import { createInterface } from "readline";
+import { stdin, stdout, exit } from "process";
+import * as fs from "fs";
 
-// const AMOUNT_OF_COINS = Infinity;
+const MODE = process.argv.includes("--file") ? "file" : "console";
 
-// let linesCount = 0;
-// let hasFinished = false;
+const program = {
+  __STEPS_COUNT: 2,
+  __linesCount: 0,
+  __output: (result?: unknown) => {
+    if (MODE === "file") {
+      fs.writeFileSync("output.txt", String(result));
+    } else {
+      console.log(result);
+    }
+  },
+  __exit: (result?: unknown) => {
+    program.__output(result);
 
-// type FirstLineInput = {
-//   n: number;
-// };
+    exit(0);
+  },
+  __defaultParser: (data: string) => data.split(" ").map(Number),
+  __customParserPerLine: {
+    // Example custom parsers for specific lines
+    // 0: (data: string) => data.split(",").map(Number), // Example: comma-separated numbers
+    // 1: (data: string) => data.split("|").map(Number), // Example: pipe-separated numbers
+  },
 
-// type SecondLineInput = {
-//   a: number;
-//   b: number;
-//   c: number;
-// };
+  __linesInput: [] as any[],
+};
 
-// type InputData = FirstLineInput | SecondLineInput;
+const processInput = (data: string) => {
+  const {
+    __linesCount,
+    __linesInput,
+    __STEPS_COUNT,
+    __exit,
+    __defaultParser,
+    __customParserPerLine,
+  } = program;
 
-// const getInputSerialized = (data: string): InputData | undefined => {
-//   linesCount++;
+  // Get the appropriate parser for this line, or use default
+  const parser = __customParserPerLine[__linesCount] || __defaultParser;
+  __linesInput[__linesCount] = parser(data);
 
-//   if (linesCount === 1) {
-//     // The first line contains the number N — the wallet's coin cost limit
-//     const n: number = Number(data);
-//     return { n };
-//   } else if (linesCount === 2) {
-//     // The second line contains three numbers: A, B, and C, representing coin types’ values
-//     const [a, b, c] = data.split(" ").map(Number);
-//     return { a, b, c };
-//   }
-// };
+  program.__linesCount++;
 
-// const getSolution = (data: InputData): number | void => {
-//   if ("n" in data) {
-//     const { n } = data;
-//     return n;
-//   } else if ("a" in data && "b" in data && "c" in data) {
-//     const { a, b, c } = data;
-//     // Write your solution logic for a, b, c here
-//   }
-// };
+  if (__linesCount === __STEPS_COUNT) {
+    __exit();
+  }
+};
 
-// const main = (): void => {
-//   const rl = readline.createInterface({
-//     input: process.stdin,
-//     output: process.stdout,
-//   });
+const main = (): void => {
+  if (MODE === "file") {
+    // File input mode
+    const input = fs.readFileSync("input.txt", "utf-8").split("\n");
+    input.forEach((line) => {
+      if (line.trim()) {
+        processInput(line.trim());
+      }
+    });
+  } else {
+    // Console input mode
+    const rl = createInterface({
+      input: stdin,
+      output: stdout,
+    });
 
-//   rl.on("line", (data: string) => {
-//     const input = getInputSerialized(data);
-//     if (!input) return;
-//     const result = getSolution(input);
+    rl.on("line", (data: string) => {
+      processInput(data);
+    });
+  }
+};
 
-//     if (hasFinished) {
-//       rl.close();
-//       console.log(result);
-//       process.exit(0);
-//     }
-//   });
-// };
-
-// main();
+main();

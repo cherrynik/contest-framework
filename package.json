@@ -4,16 +4,21 @@
   "description": "Contest Boilerplate",
   "main": "index.js",
   "scripts": {
-    "start": "ts-node index.ts",
+    "dev": "ts-node src/index.ts",
+    "start": "tsc && node dist/index.js",
     "build": "tsc"
+  },
+  "engines": {
+    "node": "12.22.9"
   },
   "packageManager": "npm@6.14.15",
   "author": "Nik Cherednik <ighosta9@gmail.com>",
   "license": "ISC",
   "devDependencies": {
     "@tsconfig/node12": "^12.1.4",
+    "@types/node": "^22.13.10",
     "nodemon": "^3.1.9",
     "ts-node": "^10.9.2",
-    "typescript": "^5.8.2"
+    "typescript": "^4.9.5"
   }
 }
