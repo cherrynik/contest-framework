@@ -1,4 +1,4 @@
-import { createInterface } from 'readline';
+import { createInterface, ReadLine } from 'readline';
 import { stdin, stdout } from 'process';
 import * as fs from 'fs';
 import { InputReader } from '../types';
@@ -9,24 +9,37 @@ export class FileInputReader implements InputReader {
   read(): string[] {
     return fs.readFileSync(this.filename, 'utf-8').split('\n');
   }
+
+  close(): void {
+    // FileInputReader does not need to close any resources
+  }
 }
 
 export class ConsoleInputReader implements InputReader {
+  private rl: ReadLine;
+
+  constructor() {
+    this.rl = createInterface({
+      input: stdin,
+      output: stdout,
+    });
+  }
+
   read(): Promise<string[]> {
     return new Promise(resolve => {
       const lines: string[] = [];
-      const rl = createInterface({
-        input: stdin,
-        output: stdout,
-      });
 
-      rl.on('line', (line: string) => {
+      this.rl.on('line', (line: string) => {
         lines.push(line);
       });
 
-      rl.on('close', () => {
+      this.rl.on('close', () => {
         resolve(lines);
       });
     });
+  }
+
+  close(): void {
+    this.rl.close();
   }
 }

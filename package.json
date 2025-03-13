@@ -5,16 +5,14 @@
   "description": "A framework for competitive programming solutions",
   "main": "dist/index.js",
   "types": "dist/index.d.ts",
-  "bin": {
-    "contest": "dist/app.js"
-  },
   "engines": {
     "node": ">=12.22.9 <13.0.0"
   },
   "scripts": {
     "clean": "rimraf dist",
-    "build": "npm run clean && tsc -p tsconfig.json",
-    "start": "node dist/app.js",
+    "build": "webpack",
+    "dev": "ts-node src/app.ts",
+    "start": "node dist/index.js",
     "test": "jest",
     "test:watch": "jest --watch",
     "test:coverage": "jest --coverage",
@@ -28,7 +26,7 @@
     "framework",
     "typescript"
   ],
-  "license": "MIT",
+  "license": "ISC",
   "devDependencies": {
     "@tsconfig/node12": "^12.1.4",
     "@types/jest": "^26.0.24",
@@ -42,6 +40,12 @@
     "prettier": "^2.4.1",
     "rimraf": "^3.0.2",
     "ts-jest": "^26.5.6",
-    "typescript": "^4.3.5"
+    "ts-node": "^10.9.2",
+    "typescript": "^4.9.5",
+    "ts-loader": "^8.2.0",
+    "webpack": "^5.75.0",
+    "webpack-cli": "^4.10.0",
+    "ajv": "^8.12.0",
+    "ajv-keywords": "^5.1.0"
   }
 }

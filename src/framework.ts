@@ -33,6 +33,7 @@ export class ContestFramework {
     this.linesCount++;
 
     if (this.linesCount === this.stepsCount) {
+      this.inputReader.close();
       this.exit(this.solve(this.linesInput));
     }
   }
@@ -42,6 +43,7 @@ export class ContestFramework {
     exit(0);
   }
 
+  // eslint-disable-next-line @typescript-eslint/no-unused-vars
   protected solve(input: any[]): unknown {
     // This method should be overridden by the user
     throw new Error('Solve method must be implemented');

@@ -3,6 +3,7 @@ export type Mode = 'file' | 'console';
 
 export interface InputReader {
   read(): string[] | Promise<string[]>;
+  close(): void;
 }
 
 export interface OutputWriter {
