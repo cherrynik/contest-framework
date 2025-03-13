@@ -1,4 +1,4 @@
-import { createInterface, ReadLine } from 'readline';
+import { createInterface } from 'readline';
 import { stdin, stdout } from 'process';
 import * as fs from 'fs';
 import { InputReader } from '../types';
@@ -16,26 +16,39 @@ export class FileInputReader implements InputReader {
 }
 
 export class ConsoleInputReader implements InputReader {
-  private rl: ReadLine;
+  private rl: ReturnType<typeof createInterface>;
+  private lines: string[] = [];
+  private resolvePromise: (value: string[]) => void;
 
-  constructor() {
+  constructor(private readonly expectedLines: number) {
     this.rl = createInterface({
       input: stdin,
       output: stdout,
+    });
+
+    this.rl.on('line', (line: string) => {
+      this.lines.push(line);
+      if (this.lines.length >= this.expectedLines) {
+        this.rl.close();
+        this.resolvePromise(this.lines);
+      }
+    });
+
+    this.rl.on('close', () => {
+      if (this.lines.length < this.expectedLines) {
+        this.resolvePromise(this.lines);
+      }
+    });
+
+    // Handle process exit to ensure readline interface is closed
+    process.on('exit', () => {
+      this.rl.close();
     });
   }
 
   read(): Promise<string[]> {
     return new Promise(resolve => {
-      const lines: string[] = [];
-
-      this.rl.on('line', (line: string) => {
-        lines.push(line);
-      });
-
-      this.rl.on('close', () => {
-        resolve(lines);
-      });
+      this.resolvePromise = resolve;
     });
   }
 

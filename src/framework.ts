@@ -3,8 +3,6 @@ import { InputReader, OutputWriter, ParserFunction } from './types';
 import { defaultParser } from './parsers';
 
 export class ContestFramework {
-  private readonly stepsCount: number;
-  private linesCount: number;
   private linesInput: any[];
   private readonly defaultParser: ParserFunction;
   private readonly customParserPerLine: Record<number, ParserFunction>;
@@ -12,14 +10,11 @@ export class ContestFramework {
   private readonly outputWriter: OutputWriter;
 
   constructor(
-    stepsCount: number,
     inputReader: InputReader,
     outputWriter: OutputWriter,
     parser: ParserFunction = defaultParser,
     customParserPerLine: Record<number, ParserFunction> = {}
   ) {
-    this.stepsCount = stepsCount;
-    this.linesCount = 0;
     this.linesInput = [];
     this.defaultParser = parser;
     this.customParserPerLine = customParserPerLine;
@@ -27,15 +22,9 @@ export class ContestFramework {
     this.outputWriter = outputWriter;
   }
 
-  private processInput(data: string): void {
-    const parser = this.customParserPerLine[this.linesCount] || this.defaultParser;
-    this.linesInput[this.linesCount] = parser(data);
-    this.linesCount++;
-
-    if (this.linesCount === this.stepsCount) {
-      this.inputReader.close();
-      this.exit(this.solve(this.linesInput));
-    }
+  private processInput(data: string, lineIndex: number): void {
+    const parser = this.customParserPerLine[lineIndex] || this.defaultParser;
+    this.linesInput[lineIndex] = parser(data);
   }
 
   private exit(result?: unknown): void {
@@ -51,10 +40,11 @@ export class ContestFramework {
 
   public async run(): Promise<void> {
     const input = await this.inputReader.read();
-    input.forEach(line => {
+    input.forEach((line, index) => {
       if (line.trim()) {
-        this.processInput(line.trim());
+        this.processInput(line.trim(), index);
       }
     });
+    this.exit(this.solve(this.linesInput));
   }
 }

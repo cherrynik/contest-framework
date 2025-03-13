@@ -12,3 +12,5 @@ export * from './io/handlers';
 
 // Utility components
 export * from './parsers';
+
+import './solutions/internet-tariff';

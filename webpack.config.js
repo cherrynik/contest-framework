@@ -1,14 +1,28 @@
 const path = require('path');
+const WebpackShellPluginNext = require('webpack-shell-plugin-next');
 
+/**
+ * @type {import('webpack').Configuration}
+ */
 module.exports = {
-  entry: './src/index.ts',
+  entry: {
+    'internet-tariff': './src/solutions/internet-tariff.ts',
+  },
   mode: 'production',
   target: 'node',
+  devtool: 'source-map',
   module: {
     rules: [
       {
         test: /\.tsx?$/,
-        use: 'ts-loader',
+        use: [
+          {
+            loader: 'ts-loader',
+            options: {
+              transpileOnly: true, // Faster builds in development
+            },
+          },
+        ],
         exclude: /node_modules/,
       },
     ],
@@ -17,7 +31,18 @@ module.exports = {
     extensions: ['.tsx', '.ts', '.js'],
   },
   output: {
-    filename: 'index.js',
+    filename: '[name].js',
     path: path.resolve(__dirname, 'dist'),
+    devtoolModuleFilenameTemplate: '[absolute-resource-path]',
   },
+  externals: {
+    readline: 'commonjs readline',
+    fs: 'commonjs fs',
+    process: 'commonjs process',
+  },
+  // plugins: [
+  //   new WebpackShellPluginNext({
+  //     executeScripts: ['node dist/internet-tariff.js'],
+  //   }),
+  // ],
 };
