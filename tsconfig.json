@@ -1,7 +1,29 @@
 {
   "extends": "@tsconfig/node12/tsconfig.json",
   "compilerOptions": {
-    "outDir": "./dist",
-    "types": ["node"]
-  }
+    "target": "ES2019",
+    "module": "AMD",
+    "declaration": true,
+    "outFile": "./dist/index.js",
+    "strict": true,
+    "esModuleInterop": true,
+    "skipLibCheck": true,
+    "forceConsistentCasingInFileNames": true,
+    "moduleResolution": "node",
+    "resolveJsonModule": true,
+    // "isolatedModules": true,
+    "noFallthroughCasesInSwitch": true,
+    "types": ["node"],
+    "lib": ["ES2019", "DOM"],
+    "downlevelIteration": true,
+    "sourceMap": true,
+    "removeComments": false,
+    "noEmitOnError": true,
+    "baseUrl": ".",
+    "paths": {
+      "*": ["node_modules/*"]
+    }
+  },
+  "include": ["src/**/*"],
+  "exclude": ["node_modules", "dist", "**/*.test.ts", "**/__tests__/**"]
 }

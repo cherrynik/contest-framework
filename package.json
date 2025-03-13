@@ -1,24 +1,47 @@
 {
-  "name": "contest-boilerplate",
+  "name": "contest-framework",
+  "author": "Nik Cherednik <ighosta9@gmail.com>",
   "version": "1.0.0",
-  "description": "Contest Boilerplate",
-  "main": "index.js",
-  "scripts": {
-    "dev": "ts-node src/index.ts",
-    "start": "tsc && node dist/index.js",
-    "build": "tsc"
+  "description": "A framework for competitive programming solutions",
+  "main": "dist/index.js",
+  "types": "dist/index.d.ts",
+  "bin": {
+    "contest": "dist/app.js"
   },
   "engines": {
-    "node": "12.22.9"
+    "node": ">=12.22.9 <13.0.0"
   },
-  "packageManager": "npm@6.14.15",
-  "author": "Nik Cherednik <ighosta9@gmail.com>",
-  "license": "ISC",
+  "scripts": {
+    "clean": "rimraf dist",
+    "build": "npm run clean && tsc -p tsconfig.json",
+    "start": "node dist/app.js",
+    "test": "jest",
+    "test:watch": "jest --watch",
+    "test:coverage": "jest --coverage",
+    "lint": "eslint . --ext .ts",
+    "lint:fix": "eslint . --ext .ts --fix",
+    "type-check": "tsc -p tsconfig.json --noEmit",
+    "type-check:test": "tsc -p tsconfig.test.json --noEmit"
+  },
+  "keywords": [
+    "competitive-programming",
+    "framework",
+    "typescript"
+  ],
+  "license": "MIT",
   "devDependencies": {
     "@tsconfig/node12": "^12.1.4",
-    "@types/node": "^22.13.10",
-    "nodemon": "^3.1.9",
-    "ts-node": "^10.9.2",
-    "typescript": "^4.9.5"
+    "@types/jest": "^26.0.24",
+    "@types/node": "^12.20.55",
+    "@typescript-eslint/eslint-plugin": "^4.33.0",
+    "@typescript-eslint/parser": "^4.33.0",
+    "eslint": "^7.32.0",
+    "eslint-config-prettier": "^8.3.0",
+    "eslint-plugin-prettier": "^4.0.0",
+    "jest": "^26.6.3",
+    "prettier": "^2.4.1",
+    "rimraf": "^3.0.2",
+    "ts-jest": "^26.5.6",
+    "typescript": "^4.3.5"
   }
 }
