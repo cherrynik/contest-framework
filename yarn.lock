@@ -1570,6 +1570,7 @@ __metadata:
     husky: "npm:^9.1.7"
     jest: "npm:^29.7.0"
     jest-environment-node: "npm:^29.7.0"
+    jsonc-eslint-parser: "npm:^2.1.0"
     nx: "npm:20.5.0"
     prettier: "npm:^2.6.2"
     ts-jest: "npm:^29.1.0"
