@@ -30,7 +30,7 @@ export class ConsoleInputReader implements InputReader {
   // eslint-disable-next-line @typescript-eslint/no-empty-function
   private resolvePromise: (value: string[]) => void = () => {};
 
-  constructor(private readonly expectedLines: number) {
+  constructor(private readonly expectedLines: number = DEFAULT_LINES_COUNT) {
     this.rl = createInterface({
       input: stdin,
       output: stdout,
@@ -79,14 +79,3 @@ export class FileOutputWriter implements OutputWriter {
     fs.writeFileSync(this.filename, String(data));
   }
 }
-
-export const ioHandlers = {
-  file: {
-    input: new FileInputReader(),
-    output: new FileOutputWriter(),
-  },
-  console: {
-    input: new ConsoleInputReader(DEFAULT_LINES_COUNT),
-    output: new ConsoleOutputWriter(),
-  },
-} as const;

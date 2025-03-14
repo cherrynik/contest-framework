@@ -4,7 +4,9 @@
  */
 
 import { ContestFramework } from '@contest/core';
-import { ioHandlers } from '@contest/io';
+import { ConsoleInputReader } from '@contest/io';
+
+const LINES_COUNT = 1 as const;
 
 /**
  * Example solution class that extends the Contest Framework.
@@ -13,8 +15,7 @@ import { ioHandlers } from '@contest/io';
 class Solution extends ContestFramework {
   constructor() {
     // Initialize with console I/O handlers
-    const { input, output } = ioHandlers['console'];
-    super(input, output);
+    super(new ConsoleInputReader(LINES_COUNT));
   }
 
   /**
