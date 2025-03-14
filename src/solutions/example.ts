@@ -3,7 +3,7 @@
  * This file demonstrates how to use the framework to solve a problem.
  */
 
-import { ContestFramework, ioHandlers } from '../';
+import { ContestFramework, ioHandlers } from '..';
 
 /**
  * Example solution class that extends the Contest Framework.
