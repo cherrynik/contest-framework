@@ -1,5 +1,5 @@
-import { ContestFramework } from '../framework';
-import { InputReader, OutputWriter } from '../types';
+import { ContestFramework } from '@contest/core';
+import { InputReader, OutputWriter } from '@contest/io';
 
 // Mock implementations for testing
 class MockInputReader implements InputReader {

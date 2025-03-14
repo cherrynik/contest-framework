@@ -27,6 +27,7 @@ export class FileInputReader implements InputReader {
 export class ConsoleInputReader implements InputReader {
   private rl: ReturnType<typeof createInterface>;
   private lines: string[] = [];
+  // eslint-disable-next-line @typescript-eslint/no-empty-function
   private resolvePromise: (value: string[]) => void = () => {};
 
   constructor(private readonly expectedLines: number) {

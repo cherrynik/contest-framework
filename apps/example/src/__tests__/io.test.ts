@@ -1,6 +1,6 @@
-import { LINES_COUNT } from '../constants';
-import { FileInputReader, ConsoleInputReader } from '../io/readers';
-import { FileOutputWriter, ConsoleOutputWriter } from '../io/writers';
+import { DEFAULT_LINES_COUNT } from '@contest/utils';
+import { FileInputReader, ConsoleInputReader } from '@contest/io';
+import { FileOutputWriter, ConsoleOutputWriter } from '@contest/io';
 import * as fs from 'fs';
 
 // Mock fs module
@@ -44,7 +44,7 @@ describe('I/O Components', () => {
     let reader: ConsoleInputReader;
 
     beforeEach(() => {
-      reader = new ConsoleInputReader(LINES_COUNT);
+      reader = new ConsoleInputReader(DEFAULT_LINES_COUNT);
     });
 
     it('should return a promise', () => {

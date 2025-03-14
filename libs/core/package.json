@@ -6,6 +6,9 @@
   "main": "./src/index.js",
   "types": "./src/index.d.ts",
   "dependencies": {
-    "tslib": "^2.3.0"
+    "tslib": "^2.3.0",
+    "@contest/parsers": "workspace:*",
+    "@contest/io": "workspace:*",
+    "@contest/utils": "workspace:*"
   }
 }
