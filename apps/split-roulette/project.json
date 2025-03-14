@@ -13,11 +13,11 @@
         "platform": "node",
         "outputPath": "dist/apps/split-roulette",
         "format": ["cjs"],
-        "bundle": false,
+        "bundle": true,
         "main": "apps/split-roulette/src/main.ts",
         "tsConfig": "apps/split-roulette/tsconfig.app.json",
         "assets": ["apps/split-roulette/src/assets"],
-        "generatePackageJson": true,
+        "generatePackageJson": false,
         "esbuildOptions": {
           "sourcemap": true,
           "outExtension": {

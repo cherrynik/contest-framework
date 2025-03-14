@@ -13,11 +13,11 @@
         "platform": "node",
         "outputPath": "dist/apps/sum-all",
         "format": ["cjs"],
-        "bundle": false,
+        "bundle": true,
         "main": "apps/sum-all/src/main.ts",
         "tsConfig": "apps/sum-all/tsconfig.app.json",
         "assets": ["apps/sum-all/src/assets"],
-        "generatePackageJson": true,
+        "generatePackageJson": false,
         "esbuildOptions": {
           "sourcemap": true,
           "outExtension": {

@@ -13,11 +13,11 @@
         "platform": "node",
         "outputPath": "dist/apps/internet-tariff",
         "format": ["cjs"],
-        "bundle": false,
+        "bundle": true,
         "main": "apps/internet-tariff/src/main.ts",
         "tsConfig": "apps/internet-tariff/tsconfig.app.json",
         "assets": ["apps/internet-tariff/src/assets"],
-        "generatePackageJson": true,
+        "generatePackageJson": false,
         "esbuildOptions": {
           "sourcemap": true,
           "outExtension": {
