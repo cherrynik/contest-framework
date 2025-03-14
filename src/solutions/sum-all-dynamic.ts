@@ -2,14 +2,15 @@ import { ContestFramework } from '../framework';
 import { OutputWriter } from '../types';
 import { ConsoleInputReader } from '../io/readers';
 
-let linesCount;
+let linesCount: number;
 
-const LinesReader = new ConsoleInputReader(1);
-LinesReader.read()
+const InitialLinesReader = new ConsoleInputReader(1);
+InitialLinesReader.read()
   .then((lines) => {
     const [firstLine] = lines;
-    const [a] = firstLine.split(' ').map(Number);
-    linesCount = a;
+    const [linesCountInput] = firstLine.split(' ').map(Number);
+    linesCount = linesCountInput;
+    InitialLinesReader.close();
   })
   .then(() => {
     const LINES_COUNT = linesCount;
