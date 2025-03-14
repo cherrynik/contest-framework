@@ -17,6 +17,7 @@ export class ConsoleInputReader implements InputReader {
 
     this.rl.on('line', (line: string) => {
       this.lines.push(line);
+
       if (this.lines.length >= this.expectedLines) {
         this.rl.close();
         this.resolvePromise(this.lines);
@@ -24,19 +25,22 @@ export class ConsoleInputReader implements InputReader {
     });
 
     this.rl.on('close', () => {
-      if (this.lines.length < this.expectedLines) {
-        this.resolvePromise(this.lines);
-      }
+      this.resolvePromise(this.lines);
     });
 
     process.on('exit', () => {
       this.rl.close();
     });
+
   }
 
   read(): Promise<string[]> {
     return new Promise((resolve) => {
       this.resolvePromise = resolve;
+
+      if (this.expectedLines === 0) {
+        this.rl.close();
+      }
     });
   }
 

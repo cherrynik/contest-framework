@@ -4,6 +4,7 @@
   "version": "0.0.0",
   "license": "MIT",
   "scripts": {
+    "start": "yarn nx serve staircases",
     "prepare": "husky",
     "commit": "git-cz",
     "commitlint": "commitlint --edit"
