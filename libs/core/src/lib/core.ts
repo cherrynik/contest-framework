@@ -5,8 +5,7 @@ import {
   InputReader,
   OutputWriter,
 } from '@contest/io';
-
-const LINES_COUNT = 2;
+import { DEFAULT_LINES_COUNT } from '@contest/utils';
 
 export class ContestFramework {
   private linesInput: unknown[][];
@@ -17,7 +16,7 @@ export class ContestFramework {
   #result: unknown;
 
   constructor(
-    inputReader: InputReader = new ConsoleInputReader(LINES_COUNT),
+    inputReader: InputReader = new ConsoleInputReader(DEFAULT_LINES_COUNT),
     outputWriter: OutputWriter = new ConsoleOutputWriter(),
     parser: ParserFunction = defaultParser,
     customParserPerLine: Record<number, ParserFunction> = {},
