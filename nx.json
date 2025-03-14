@@ -14,7 +14,7 @@
     ],
     "sharedGlobals": ["{workspaceRoot}/.github/workflows/ci.yml"]
   },
-  "nxCloudId": "67d3ec83f75f1030fb35cfce",
+  "nxCloudId": "67d43398976068393f79c0dd",
   "targetDefaults": {
     "@nx/esbuild:esbuild": {
       "cache": true,
@@ -34,7 +34,7 @@
       "options": {
         "targetName": "test"
       },
-      "exclude": ["e2e/**/*"]
+      "exclude": ["apps/contest-e2e/**/*"]
     }
   ]
 }

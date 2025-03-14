@@ -44,7 +44,7 @@ describe('ContestFramework', () => {
   describe('solve', () => {
     it('should throw error if not implemented', async () => {
       await expect(framework.run()).rejects.toThrow(
-        'Solve method must be implemented'
+        'Solve method must be implemented',
       );
     });
   });

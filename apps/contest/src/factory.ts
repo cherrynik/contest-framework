@@ -6,7 +6,7 @@ export class ContestFrameworkFactory {
   static create(
     mode: Mode = 'console',
     parser?: ParserFunction,
-    customParserPerLine?: Record<number, ParserFunction>
+    customParserPerLine?: Record<number, ParserFunction>,
   ): ContestFramework {
     const { input, output } = ioHandlers[mode];
 

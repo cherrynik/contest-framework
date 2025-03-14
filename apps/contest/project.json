@@ -1,8 +1,7 @@
 {
-  "name": "contest-framework",
-  "$schema": "node_modules/nx/schemas/project-schema.json",
-  "includedScripts": [],
-  "sourceRoot": "src",
+  "name": "contest",
+  "$schema": "../../node_modules/nx/schemas/project-schema.json",
+  "sourceRoot": "apps/contest/src",
   "projectType": "application",
   "tags": [],
   "targets": {
@@ -12,19 +11,13 @@
       "defaultConfiguration": "production",
       "options": {
         "platform": "node",
-        "outputPath": "dist",
+        "outputPath": "dist/apps/contest",
         "format": ["cjs"],
         "bundle": true,
-        "main": "src/solutions/example.ts",
-        "additionalEntryPoints": [
-          "src/solutions/internet-tariff.ts",
-          "src/solutions/sum-all.ts",
-          "src/solutions/task-3.ts"
-        ],
-        "tsConfig": "tsconfig.app.json",
-        "assets": ["src/assets"],
-        "generatePackageJson": false,
-        "minify": true,
+        "main": "apps/contest/src/main.ts",
+        "tsConfig": "apps/contest/tsconfig.app.json",
+        "assets": ["apps/contest/src/assets"],
+        "generatePackageJson": true,
         "esbuildOptions": {
           "sourcemap": true,
           "outExtension": {
@@ -50,15 +43,15 @@
       "defaultConfiguration": "development",
       "dependsOn": ["build"],
       "options": {
-        "buildTarget": "contest-framework:build",
+        "buildTarget": "contest:build",
         "runBuildTargetDependencies": false
       },
       "configurations": {
         "development": {
-          "buildTarget": "contest-framework:build:development"
+          "buildTarget": "contest:build:development"
         },
         "production": {
-          "buildTarget": "contest-framework:build:production"
+          "buildTarget": "contest:build:production"
         }
       }
     },
@@ -69,7 +62,7 @@
     },
     "docker-build": {
       "dependsOn": ["build"],
-      "command": "docker build -f Dockerfile . -t contest-framework"
+      "command": "docker build -f apps/contest/Dockerfile . -t contest"
     }
   }
 }

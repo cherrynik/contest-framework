@@ -1,6 +1,6 @@
 export default {
-  displayName: 'e2e',
-  preset: '../jest.preset.js',
+  displayName: 'contest-e2e',
+  preset: '../../jest.preset.js',
   setupFiles: ['<rootDir>/src/test-setup.ts'],
   testEnvironment: 'node',
   transform: {
@@ -12,5 +12,5 @@ export default {
     ],
   },
   moduleFileExtensions: ['ts', 'js', 'html'],
-  coverageDirectory: '../coverage/e2e',
+  coverageDirectory: '../../coverage/contest-e2e',
 };
