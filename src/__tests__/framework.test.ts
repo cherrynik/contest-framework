@@ -38,19 +38,21 @@ describe('ContestFramework', () => {
   beforeEach(() => {
     inputReader = new MockInputReader([]);
     outputWriter = new MockOutputWriter();
-    framework = new ContestFramework(2, inputReader, outputWriter);
+    framework = new ContestFramework(inputReader, outputWriter);
   });
 
   describe('solve', () => {
     it('should throw error if not implemented', async () => {
-      await expect(framework.run()).rejects.toThrow('Solve method must be implemented');
+      await expect(framework.run()).rejects.toThrow(
+        'Solve method must be implemented'
+      );
     });
   });
 
   describe('input processing', () => {
     class TestSolution extends ContestFramework {
       constructor() {
-        super(2, inputReader, outputWriter);
+        super(inputReader, outputWriter);
       }
 
       protected solve(input: number[][]): unknown {
@@ -59,11 +61,11 @@ describe('ContestFramework', () => {
     }
 
     it('should process input lines correctly', async () => {
-      const solution = new TestSolution();
       inputReader = new MockInputReader(['1 2 3', '4 5 6']);
+      const solution = new TestSolution();
       await solution.run();
 
-      const output = outputWriter.getOutput();
+      const output = solution.result;
       expect(output).toEqual([
         [1, 2, 3],
         [4, 5, 6],
@@ -71,15 +73,12 @@ describe('ContestFramework', () => {
     });
 
     it('should handle empty lines', async () => {
-      const solution = new TestSolution();
       inputReader = new MockInputReader(['1 2 3', '', '4 5 6']);
+      const solution = new TestSolution();
       await solution.run();
 
-      const output = outputWriter.getOutput();
-      expect(output).toEqual([
-        [1, 2, 3],
-        [4, 5, 6],
-      ]);
+      const output = solution.result;
+      expect(output).toEqual([[1, 2, 3], [], [4, 5, 6]]);
     });
   });
 });

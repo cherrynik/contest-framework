@@ -1,13 +1,13 @@
-import { exit } from 'process';
 import { InputReader, OutputWriter, ParserFunction } from './types';
 import { defaultParser } from './parsers';
 
 export class ContestFramework {
-  private linesInput: any[];
+  private linesInput: unknown[];
   private readonly defaultParser: ParserFunction;
   private readonly customParserPerLine: Record<number, ParserFunction>;
   private readonly inputReader: InputReader;
   private readonly outputWriter: OutputWriter;
+  #result: unknown;
 
   constructor(
     inputReader: InputReader,
@@ -20,6 +20,7 @@ export class ContestFramework {
     this.customParserPerLine = customParserPerLine;
     this.inputReader = inputReader;
     this.outputWriter = outputWriter;
+    this.#result = null;
   }
 
   private processInput(data: string, lineIndex: number): void {
@@ -28,22 +29,23 @@ export class ContestFramework {
   }
 
   private exit(result?: unknown): void {
+    this.#result = result;
     this.outputWriter.write(result);
-    exit(0);
   }
 
-  // eslint-disable-next-line @typescript-eslint/no-unused-vars
-  protected solve(input: any[]): unknown {
+  protected solve(input: unknown[]): unknown {
     // This method should be overridden by the user
     throw new Error('Solve method must be implemented');
+  }
+
+  public get result(): unknown {
+    return this.#result;
   }
 
   public async run(): Promise<void> {
     const input = await this.inputReader.read();
     input.forEach((line, index) => {
-      if (line.trim()) {
-        this.processInput(line.trim(), index);
-      }
+      this.processInput(line, index);
     });
     this.exit(this.solve(this.linesInput));
   }
