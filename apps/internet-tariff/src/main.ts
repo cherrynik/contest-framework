@@ -1,19 +1,8 @@
 import { ContestFramework } from '@contest/core';
 import { ConsoleInputReader } from '@contest/io';
+import { getAmountToPay } from '@contest/impls';
 
 const LINES_COUNT = 1 as const;
-
-const getAmountToPay = ({
-  price,
-  trafficInMB,
-  priceForExtraMB,
-  usedInMB,
-}: {
-  price: number;
-  trafficInMB: number;
-  priceForExtraMB: number;
-  usedInMB: number;
-}): number => price + Math.max(usedInMB - trafficInMB, 0) * priceForExtraMB;
 
 class InternetTariffSolution extends ContestFramework {
   protected solve(input: string[][]): number {

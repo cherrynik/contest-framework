@@ -1,36 +1,26 @@
 import { ContestFramework } from '@contest/core';
-import { ConsoleInputReader, OutputWriter } from '@contest/io';
+import { ConsoleInputReader } from '@contest/io';
+import { getAmountToPay } from '@contest/impls';
 
-let linesCount;
+const LINES_COUNT = 1 as const;
 
-const LinesReader = new ConsoleInputReader(1);
-LinesReader.read()
-  .then((lines) => {
-    const [firstLine] = lines;
-    const [a] = firstLine.split(' ').map(Number);
-    linesCount = a;
-    LinesReader.close();
-  })
-  .then(() => {
-    const LINES_COUNT = linesCount;
+class SumAllSolution extends ContestFramework {
+  protected solve(input: string[][]): number {
+    const [firstLine] = input;
+    const [price, trafficInMB, priceForExtraMB, usedInMB] =
+      firstLine.map(Number);
 
-    const outputWriter: OutputWriter = {
-      write: (result: unknown) => {
-        console.log(result);
-      },
-    };
+    return getAmountToPay({
+      price,
+      trafficInMB,
+      priceForExtraMB,
+      usedInMB,
+    });
+  }
+}
 
-    class SumAllSolution extends ContestFramework {
-      protected solve = (input: number[][]) => {
-        const lines = input;
-        return lines.flat().reduce((sum, num) => sum + num, 0);
-      };
-    }
+const solution = new SumAllSolution(
+  new ConsoleInputReader(LINES_COUNT)
+);
 
-    const solution = new SumAllSolution(
-      new ConsoleInputReader(LINES_COUNT),
-      outputWriter
-    );
-
-    solution.run().catch(console.error);
-  });
+solution.run().catch(console.error);

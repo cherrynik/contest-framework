@@ -1,36 +1,19 @@
 import { ContestFramework } from '@contest/core';
 import { ConsoleInputReader } from '@contest/io';
+import { getAmountOfRouletteBets } from '@contest/impls';
 
 const LINES_COUNT = 1 as const;
 
-const getAmountToPay = ({
-  price,
-  trafficInMB,
-  priceForExtraMB,
-  usedInMB,
-}: {
-  price: number;
-  trafficInMB: number;
-  priceForExtraMB: number;
-  usedInMB: number;
-}): number => price + Math.max(usedInMB - trafficInMB, 0) * priceForExtraMB;
-
-class InternetTariffSolution extends ContestFramework {
+class SplitRouletteSolution extends ContestFramework {
   protected solve(input: string[][]): number {
     const [firstLine] = input;
-    const [price, trafficInMB, priceForExtraMB, usedInMB] =
-      firstLine.map(Number);
+    const [t] = firstLine.map(Number);
 
-    return getAmountToPay({
-      price,
-      trafficInMB,
-      priceForExtraMB,
-      usedInMB,
-    });
+    return getAmountOfRouletteBets(t);
   }
 }
 
-const solution = new InternetTariffSolution(
+const solution = new SplitRouletteSolution(
   new ConsoleInputReader(LINES_COUNT)
 );
 

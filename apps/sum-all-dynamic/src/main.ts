@@ -1,37 +1,29 @@
 import { ContestFramework } from '@contest/core';
 import { ConsoleInputReader } from '@contest/io';
+import { sumAll } from '@contest/impls';
 
-const LINES_COUNT = 1 as const;
+let linesCount;
 
-const getAmountToPay = ({
-  price,
-  trafficInMB,
-  priceForExtraMB,
-  usedInMB,
-}: {
-  price: number;
-  trafficInMB: number;
-  priceForExtraMB: number;
-  usedInMB: number;
-}): number => price + Math.max(usedInMB - trafficInMB, 0) * priceForExtraMB;
+const LinesReader = new ConsoleInputReader(1);
+LinesReader.read()
+  .then((lines) => {
+    const [firstLine] = lines;
+    const [a] = firstLine.split(' ').map(Number);
 
-class SumAllDynamicSolution extends ContestFramework {
-  protected solve(input: string[][]): number {
-    const [firstLine] = input;
-    const [price, trafficInMB, priceForExtraMB, usedInMB] =
-      firstLine.map(Number);
+    linesCount = a;
+    LinesReader.close();
+  })
+  .then(() => {
+    const LINES_COUNT = linesCount;
 
-    return getAmountToPay({
-      price,
-      trafficInMB,
-      priceForExtraMB,
-      usedInMB,
-    });
-  }
-}
+    class SumAllDynamicSolution extends ContestFramework {
+      protected solve = (input: number[][]) => {
+        const lines = input;
+        return sumAll(lines.flat());
+      };
+    }
 
-const solution = new SumAllDynamicSolution(
-  new ConsoleInputReader(LINES_COUNT)
-);
+    const solution = new SumAllDynamicSolution(new ConsoleInputReader(LINES_COUNT));
 
-solution.run().catch(console.error);
+    solution.run().catch(console.error);
+  });

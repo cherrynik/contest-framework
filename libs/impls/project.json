@@ -1,0 +1,19 @@
+{
+  "name": "impls",
+  "$schema": "../../node_modules/nx/schemas/project-schema.json",
+  "sourceRoot": "libs/impls/src",
+  "projectType": "library",
+  "tags": [],
+  "targets": {
+    "build": {
+      "executor": "@nx/js:tsc",
+      "outputs": ["{options.outputPath}"],
+      "options": {
+        "outputPath": "dist/libs/impls",
+        "main": "libs/impls/src/index.ts",
+        "tsConfig": "libs/impls/tsconfig.lib.json",
+        "assets": ["libs/impls/*.md"]
+      }
+    }
+  }
+}

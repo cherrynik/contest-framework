@@ -16,6 +16,7 @@
     "baseUrl": ".",
     "paths": {
       "@contest/core": ["libs/core/src/index.ts"],
+      "@contest/impls": ["libs/impls/src/index.ts"],
       "@contest/io": ["libs/io/src/index.ts"],
       "@contest/io-utils": ["io-utils/src/index.ts"],
       "@contest/libs": ["libs/src/index.ts"],
