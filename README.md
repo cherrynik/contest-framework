@@ -2,18 +2,82 @@
 
 A TypeScript-based monorepo framework for competitive programming solutions that handles input/output operations and provides a clean, modular structure for your solutions.
 
-## Features
+## Why Use Contest Framework?
 
-- Monorepo structure with NX for efficient builds and dependency management
-- Support for both file and console I/O
-- Customizable input parsing
-- Type-safe implementation
-- Easy to extend with custom I/O handlers
-- Built-in solution templates
-- Modular solution structure
-- Built-in testing framework (Jest)
-- Code quality tools (ESLint, Prettier)
-- Modern development environment
+Compare these two implementations of the same solution for an internet tariff calculation problem:
+
+### Traditional Approach (Vanilla JavaScript)
+
+```javascript
+const readline = require("readline");
+
+let result;
+const rl = readline.createInterface({
+  input: process.stdin,
+  output: process.stdout,
+});
+
+const getAmountToPay = ({ price, trafficInMB, priceForExtraMB, usedInMB }) =>
+  price + Math.max(usedInMB - trafficInMB, 0) * priceForExtraMB;
+
+process.stdin.on("end", () => {
+  console.log(result);
+  process.exit(0);
+});
+
+rl.on("line", (data) => {
+  const [price, trafficInMB, priceForExtraMB, usedInMB] = data
+    .split(" ")
+    .map(Number);
+  result = getAmountToPay({
+    price,
+    trafficInMB,
+    priceForExtraMB,
+    usedInMB,
+  });
+});
+```
+
+### With Contest Framework (TypeScript)
+
+```typescript
+import { ContestFramework } from '@contest/core';
+import { ConsoleInputReader } from '@contest/io';
+import { getAmountToPay } from '@contest/impls';
+
+const LINES_COUNT = 1 as const;
+
+class InternetTariffSolution extends ContestFramework {
+  protected solve(input: string[][]): number {
+    const [firstLine] = input;
+    const [price, trafficInMB, priceForExtraMB, usedInMB] =
+      firstLine.map(Number);
+
+    return getAmountToPay({
+      price,
+      trafficInMB,
+      priceForExtraMB,
+      usedInMB,
+    });
+  }
+}
+
+const solution = new InternetTariffSolution(
+  new ConsoleInputReader(LINES_COUNT)
+);
+
+solution.run().catch(console.error);
+```
+
+While not significantly shorter, the Contest Framework approach offers:
+
+- Type safety with TypeScript
+- Predictable structure for all solutions
+- Built-in tools for input/output handling
+- Separation of business logic from I/O concerns
+- Reusable implementations across different problems
+- Compiled into a single file, ready for contest submission
+- Focus on solving the problem, not handling I/O boilerplate
 
 ## Project Structure
 
@@ -31,6 +95,20 @@ A TypeScript-based monorepo framework for competitive programming solutions that
 ├── dist/                 # Compiled output
 └── node_modules/         # Dependencies
 ```
+
+## Features
+
+- Monorepo structure with NX for efficient builds and dependency management
+- Support for both file and console I/O
+- Customizable input parsing
+- Type-safe implementation
+- Easy to extend with custom I/O handlers
+- Built-in solution templates
+- Modular solution structure
+- Built-in testing framework (Jest)
+- Code quality tools (ESLint, Prettier)
+- Modern development environment
+
 
 ## Prerequisites
 
