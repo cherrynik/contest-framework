@@ -8,7 +8,6 @@
   "dependencies": {
     "tslib": "^2.3.0",
     "@contest/parsers": "workspace:*",
-    "@contest/io": "workspace:*",
-    "@contest/utils": "workspace:*"
+    "@contest/io": "workspace:*"
   }
 }

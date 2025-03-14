@@ -13,6 +13,11 @@ const LINES_COUNT = 1 as const;
  * This is where you would implement your problem-solving logic.
  */
 class Solution extends ContestFramework {
+  constructor() {
+    // Initialize with console I/O handlers
+    super(new ConsoleInputReader(LINES_COUNT));
+  }
+
   /**
    * Implement your solution logic here.
    * @param input Array of parsed input lines
@@ -27,6 +32,4 @@ class Solution extends ContestFramework {
 }
 
 // Run the solution
-new Solution(
-  new ConsoleInputReader(LINES_COUNT),
-).run();
+new Solution().run();
