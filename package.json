@@ -1,53 +1,45 @@
 {
-  "name": "contest-framework",
-  "author": "Nik Cherednik <ighosta9@gmail.com>",
-  "version": "1.0.0",
-  "description": "A framework for competitive programming solutions",
-  "main": "dist/index.js",
-  "types": "dist/index.d.ts",
-  "engines": {
-    "node": ">=12.22.9 <13.0.0"
-  },
+  "name": "@org/source",
+  "version": "0.0.0",
+  "private": true,
+  "license": "MIT",
   "scripts": {
-    "clean": "rimraf dist",
-    "build": "webpack --mode production",
-    "dev": "webpack --mode development",
-    "watch": "webpack --mode development --watch",
-    "start": "node dist/internet-tariff.js",
-    "test": "jest",
-    "test:watch": "jest --watch",
-    "test:coverage": "jest --coverage",
-    "lint": "eslint . --ext .ts",
-    "lint:fix": "eslint . --ext .ts --fix",
-    "type-check": "tsc -p tsconfig.json --noEmit",
-    "type-check:test": "tsc -p tsconfig.test.json --noEmit"
+    "start": "nx serve",
+    "build": "nx build",
+    "test": "nx test"
   },
-  "keywords": [
-    "competitive-programming",
-    "framework",
-    "typescript"
-  ],
-  "license": "ISC",
+  "nx": {
+    "includedScripts": []
+  },
+  "packageManager": "yarn@4.7.0",
+  "dependencies": {
+    "axios": "^1.6.0"
+  },
   "devDependencies": {
-    "@tsconfig/node12": "^12.1.4",
-    "@types/jest": "^26.0.24",
-    "@types/node": "^12.20.55",
-    "@typescript-eslint/eslint-plugin": "^4.33.0",
-    "@typescript-eslint/parser": "^4.33.0",
-    "ajv": "^8.12.0",
-    "ajv-keywords": "^5.1.0",
-    "eslint": "^7.32.0",
-    "eslint-config-prettier": "^8.3.0",
-    "eslint-plugin-prettier": "^4.0.0",
-    "jest": "^26.6.3",
-    "prettier": "^2.4.1",
-    "rimraf": "^3.0.2",
-    "ts-jest": "^26.5.6",
-    "ts-loader": "^8.2.0",
-    "ts-node": "^10.9.2",
-    "typescript": "^4.9.5",
-    "webpack": "^5.75.0",
-    "webpack-cli": "^4.10.0",
-    "webpack-shell-plugin-next": "^2.3.2"
+    "@eslint/js": "^9.8.0",
+    "@nx/esbuild": "20.5.0",
+    "@nx/eslint": "20.5.0",
+    "@nx/eslint-plugin": "20.5.0",
+    "@nx/jest": "20.5.0",
+    "@nx/js": "20.5.0",
+    "@nx/node": "20.5.0",
+    "@nx/workspace": "20.5.0",
+    "@swc-node/register": "~1.9.1",
+    "@swc/core": "~1.5.7",
+    "@swc/helpers": "~0.5.11",
+    "@types/jest": "^29.5.12",
+    "@types/node": "~18.16.9",
+    "esbuild": "^0.19.2",
+    "eslint": "^9.8.0",
+    "eslint-config-prettier": "^9.0.0",
+    "jest": "^29.7.0",
+    "jest-environment-node": "^29.7.0",
+    "nx": "20.5.0",
+    "prettier": "^2.6.2",
+    "ts-jest": "^29.1.0",
+    "ts-node": "10.9.1",
+    "tslib": "^2.3.0",
+    "typescript": "~5.7.2",
+    "typescript-eslint": "^8.19.0"
   }
 }

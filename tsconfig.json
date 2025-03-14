@@ -1,28 +1,30 @@
 {
-  "extends": "@tsconfig/node12/tsconfig.json",
   "compilerOptions": {
-    "target": "ES2019",
-    "module": "AMD",
-    "declaration": true,
-    "outFile": "./dist/index.js",
-    "strict": true,
-    "esModuleInterop": true,
-    "skipLibCheck": true,
-    "forceConsistentCasingInFileNames": true,
-    "moduleResolution": "node",
-    "resolveJsonModule": true,
-    "noFallthroughCasesInSwitch": true,
-    "types": ["node"],
-    "lib": ["ES2019", "DOM"],
-    "downlevelIteration": true,
+    "rootDir": ".",
     "sourceMap": true,
-    "removeComments": false,
-    "noEmitOnError": true,
+    "declaration": false,
+    "moduleResolution": "node",
+    "emitDecoratorMetadata": true,
+    "experimentalDecorators": true,
+    "importHelpers": true,
+    "target": "es2015",
+    "module": "esnext",
+    "lib": ["es2020", "dom"],
+    "skipLibCheck": true,
+    "skipDefaultLibCheck": true,
     "baseUrl": ".",
-    "paths": {
-      "*": ["node_modules/*"]
-    }
+    "paths": {},
+    "esModuleInterop": true
   },
-  "include": ["src/**/*"],
-  "exclude": ["node_modules", "dist", "**/*.test.ts", "**/__tests__/**"]
+  "files": [],
+  "include": [],
+  "references": [
+    {
+      "path": "./tsconfig.app.json"
+    },
+    {
+      "path": "./tsconfig.spec.json"
+    }
+  ],
+  "exclude": ["node_modules", "tmp"]
 }

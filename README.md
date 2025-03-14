@@ -1,123 +1,82 @@
-# Contest Framework
+# Org
 
-A TypeScript framework for competitive programming solutions that handles input/output operations and provides a clean structure for your solutions.
+<a alt="Nx logo" href="https://nx.dev" target="_blank" rel="noreferrer"><img src="https://raw.githubusercontent.com/nrwl/nx/master/images/nx-logo.png" width="45"></a>
 
-## Features
+✨ Your new, shiny [Nx workspace](https://nx.dev) is almost ready ✨.
 
-- Support for both file and console I/O
-- Customizable input parsing
-- Type-safe implementation
-- Easy to extend with custom I/O handlers
-- Built-in factory for quick setup
+[Learn more about this workspace setup and its capabilities](https://nx.dev/nx-api/node?utm_source=nx_project&amp;utm_medium=readme&amp;utm_campaign=nx_projects) or run `npx nx graph` to visually explore what was created. Now, let's get you up to speed!
 
-## Installation
+## Finish your CI setup
 
-```bash
-npm install contest-framework
+[Click here to finish setting up your workspace!](https://cloud.nx.app/connect/1o8PRgFwcB)
+
+
+## Run tasks
+
+To run the dev server for your app, use:
+
+```sh
+npx nx serve org
 ```
 
-## Usage
+To create a production bundle:
 
-### Basic Usage
-
-```typescript
-import { ContestFramework, ioHandlers } from "contest-framework";
-
-class Solution extends ContestFramework {
-  constructor() {
-    const { input, output } = ioHandlers["console"];
-    super(2, input, output); // 2 is the number of input lines
-  }
-
-  protected solve(input: number[][]): unknown {
-    // Your solution goes here
-    // input[0] - first line of input
-    // input[1] - second line of input
-    return input;
-  }
-}
-
-// Run the solution
-new Solution().run();
+```sh
+npx nx build org
 ```
 
-### Using the Factory
+To see all available targets to run for a project, run:
 
-```typescript
-import { ContestFrameworkFactory } from "contest-framework";
-
-class Solution extends ContestFrameworkFactory.create(2, "file") {
-  protected solve(input: number[][]): unknown {
-    // Your solution goes here
-    return input;
-  }
-}
-
-// Run the solution
-new Solution().run();
+```sh
+npx nx show project org
 ```
 
-### Custom Parsers
+These targets are either [inferred automatically](https://nx.dev/concepts/inferred-tasks?utm_source=nx_project&utm_medium=readme&utm_campaign=nx_projects) or defined in the `project.json` or `package.json` files.
 
-```typescript
-import { ContestFramework, ioHandlers, ParserFunction } from "contest-framework";
+[More about running tasks in the docs &raquo;](https://nx.dev/features/run-tasks?utm_source=nx_project&utm_medium=readme&utm_campaign=nx_projects)
 
-const customParser: ParserFunction = (data: string) => 
-  data.split(",").map(Number);
+## Add new projects
 
-class Solution extends ContestFramework {
-  constructor() {
-    const { input, output } = ioHandlers["console"];
-    super(2, input, output, customParser);
-  }
+While you could add new projects to your workspace manually, you might want to leverage [Nx plugins](https://nx.dev/concepts/nx-plugins?utm_source=nx_project&utm_medium=readme&utm_campaign=nx_projects) and their [code generation](https://nx.dev/features/generate-code?utm_source=nx_project&utm_medium=readme&utm_campaign=nx_projects) feature.
 
-  protected solve(input: number[][]): unknown {
-    return input;
-  }
-}
+Use the plugin's generator to create new projects.
+
+To generate a new application, use:
+
+```sh
+npx nx g @nx/node:app demo
 ```
 
-### Custom I/O Handlers
+To generate a new library, use:
 
-```typescript
-import { InputReader, OutputWriter } from "contest-framework";
-
-class CustomInputReader implements InputReader {
-  read(): string[] {
-    // Your custom input logic
-  }
-}
-
-class CustomOutputWriter implements OutputWriter {
-  write(data: unknown): void {
-    // Your custom output logic
-  }
-}
-
-class Solution extends ContestFramework {
-  constructor() {
-    super(2, new CustomInputReader(), new CustomOutputWriter());
-  }
-
-  protected solve(input: number[][]): unknown {
-    return input;
-  }
-}
+```sh
+npx nx g @nx/node:lib mylib
 ```
 
-## Development
+You can use `npx nx list` to get a list of installed plugins. Then, run `npx nx list <plugin-name>` to learn about more specific capabilities of a particular plugin. Alternatively, [install Nx Console](https://nx.dev/getting-started/editor-setup?utm_source=nx_project&utm_medium=readme&utm_campaign=nx_projects) to browse plugins and generators in your IDE.
 
-```bash
-# Install dependencies
-npm install
+[Learn more about Nx plugins &raquo;](https://nx.dev/concepts/nx-plugins?utm_source=nx_project&utm_medium=readme&utm_campaign=nx_projects) | [Browse the plugin registry &raquo;](https://nx.dev/plugin-registry?utm_source=nx_project&utm_medium=readme&utm_campaign=nx_projects)
 
-# Build the project
-npm run build
 
-# Run tests
-npm test
-```
+[Learn more about Nx on CI](https://nx.dev/ci/intro/ci-with-nx#ready-get-started-with-your-provider?utm_source=nx_project&utm_medium=readme&utm_campaign=nx_projects)
 
-## License
+## Install Nx Console
 
-MIT 
+Nx Console is an editor extension that enriches your developer experience. It lets you run tasks, generate code, and improves code autocompletion in your IDE. It is available for VSCode and IntelliJ.
+
+[Install Nx Console &raquo;](https://nx.dev/getting-started/editor-setup?utm_source=nx_project&utm_medium=readme&utm_campaign=nx_projects)
+
+## Useful links
+
+Learn more:
+
+- [Learn more about this workspace setup](https://nx.dev/nx-api/node?utm_source=nx_project&amp;utm_medium=readme&amp;utm_campaign=nx_projects)
+- [Learn about Nx on CI](https://nx.dev/ci/intro/ci-with-nx?utm_source=nx_project&utm_medium=readme&utm_campaign=nx_projects)
+- [Releasing Packages with Nx release](https://nx.dev/features/manage-releases?utm_source=nx_project&utm_medium=readme&utm_campaign=nx_projects)
+- [What are Nx plugins?](https://nx.dev/concepts/nx-plugins?utm_source=nx_project&utm_medium=readme&utm_campaign=nx_projects)
+
+And join the Nx community:
+- [Discord](https://go.nx.dev/community)
+- [Follow us on X](https://twitter.com/nxdevtools) or [LinkedIn](https://www.linkedin.com/company/nrwl)
+- [Our Youtube channel](https://www.youtube.com/@nxdevtools)
+- [Our blog](https://nx.dev/blog?utm_source=nx_project&utm_medium=readme&utm_campaign=nx_projects)
