@@ -13,7 +13,7 @@ export class ContestFramework {
     inputReader: InputReader,
     outputWriter: OutputWriter,
     parser: ParserFunction = defaultParser,
-    customParserPerLine: Record<number, ParserFunction> = {}
+    customParserPerLine: Record<number, ParserFunction> = {},
   ) {
     this.linesInput = [];
     this.defaultParser = parser;
@@ -33,6 +33,7 @@ export class ContestFramework {
     this.outputWriter.write(result);
   }
 
+  // eslint-disable-next-line @typescript-eslint/no-unused-vars
   protected solve(input: unknown[]): unknown {
     // This method should be overridden by the user
     throw new Error('Solve method must be implemented');

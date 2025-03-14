@@ -4,7 +4,7 @@ import * as fs from 'fs';
 import { InputReader } from '../types';
 
 export class FileInputReader implements InputReader {
-  constructor(private readonly filename: string = 'input.txt') {}
+  constructor(private readonly filename = 'input.txt') {}
 
   read(): string[] {
     return fs.readFileSync(this.filename, 'utf-8').split('\n');
@@ -48,7 +48,7 @@ export class ConsoleInputReader implements InputReader {
   }
 
   read(): Promise<string[]> {
-    return new Promise(resolve => {
+    return new Promise((resolve) => {
       this.resolvePromise = resolve;
     });
   }

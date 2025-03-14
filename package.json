@@ -4,6 +4,7 @@
   "private": true,
   "license": "MIT",
   "scripts": {
+    "contest": "NODE_OPTIONS='--max-old-space-size=256' node --inspect --optimize-for-size --max-old-space-size=256 --gc-interval=100 --expose-gc dist/internet-tariff.js",
     "start": "nx serve",
     "build": "nx build",
     "test": "nx test",
