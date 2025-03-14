@@ -1,5 +1,5 @@
 export default {
-  displayName: 'org',
+  displayName: 'contest-framework',
   preset: './jest.preset.js',
   testEnvironment: 'node',
   transform: {

@@ -1,82 +1,154 @@
-# Org
+# Contest Framework 2025
 
-<a alt="Nx logo" href="https://nx.dev" target="_blank" rel="noreferrer"><img src="https://raw.githubusercontent.com/nrwl/nx/master/images/nx-logo.png" width="45"></a>
+A TypeScript-based framework for competitive programming solutions that handles input/output operations and provides a clean structure for your solutions.
 
-✨ Your new, shiny [Nx workspace](https://nx.dev) is almost ready ✨.
+## Features
 
-[Learn more about this workspace setup and its capabilities](https://nx.dev/nx-api/node?utm_source=nx_project&amp;utm_medium=readme&amp;utm_campaign=nx_projects) or run `npx nx graph` to visually explore what was created. Now, let's get you up to speed!
+- Support for both file and console I/O
+- Customizable input parsing
+- Type-safe implementation
+- Easy to extend with custom I/O handlers
+- Built-in factory for quick setup
+- Modular solution structure
+- Built-in testing framework
+- Code quality tools (ESLint, Prettier)
+- Modern build system with Vite
 
-## Finish your CI setup
+## Project Structure
 
-[Click here to finish setting up your workspace!](https://cloud.nx.app/connect/1o8PRgFwcB)
-
-
-## Run tasks
-
-To run the dev server for your app, use:
-
-```sh
-npx nx serve org
+```
+.
+├── src/                    # Source code directory
+│   ├── solutions/         # Solution implementations
+│   ├── io/               # Input/Output handling
+│   ├── __tests__/        # Test files
+│   ├── constants.ts      # Global constants
+│   ├── factory.ts        # Solution factory
+│   ├── framework.ts      # Core framework implementation
+│   ├── index.ts          # Main entry point
+│   ├── parsers.ts        # Input parsing utilities
+│   └── types.ts          # TypeScript type definitions
+├── dist/                  # Compiled output
+└── node_modules/         # Dependencies
 ```
 
-To create a production bundle:
+## Installation
 
-```sh
-npx nx build org
+```bash
+yarn install
 ```
 
-To see all available targets to run for a project, run:
+## Usage
 
-```sh
-npx nx show project org
+### Basic Usage
+
+```typescript
+import { ContestFramework, ioHandlers } from "contest-framework";
+
+class Solution extends ContestFramework {
+  constructor() {
+    const { input, output } = ioHandlers["console"];
+    super(2, input, output); // 2 is the number of input lines
+  }
+
+  protected solve(input: number[][]): unknown {
+    // Your solution goes here
+    // input[0] - first line of input
+    // input[1] - second line of input
+    return input;
+  }
+}
+
+// Run the solution
+new Solution().run();
 ```
 
-These targets are either [inferred automatically](https://nx.dev/concepts/inferred-tasks?utm_source=nx_project&utm_medium=readme&utm_campaign=nx_projects) or defined in the `project.json` or `package.json` files.
+### Using the Factory
 
-[More about running tasks in the docs &raquo;](https://nx.dev/features/run-tasks?utm_source=nx_project&utm_medium=readme&utm_campaign=nx_projects)
+```typescript
+import { ContestFrameworkFactory } from "contest-framework";
 
-## Add new projects
+class Solution extends ContestFrameworkFactory.create(2, "file") {
+  protected solve(input: number[][]): unknown {
+    // Your solution goes here
+    return input;
+  }
+}
 
-While you could add new projects to your workspace manually, you might want to leverage [Nx plugins](https://nx.dev/concepts/nx-plugins?utm_source=nx_project&utm_medium=readme&utm_campaign=nx_projects) and their [code generation](https://nx.dev/features/generate-code?utm_source=nx_project&utm_medium=readme&utm_campaign=nx_projects) feature.
-
-Use the plugin's generator to create new projects.
-
-To generate a new application, use:
-
-```sh
-npx nx g @nx/node:app demo
+// Run the solution
+new Solution().run();
 ```
 
-To generate a new library, use:
+### Custom Parsers
 
-```sh
-npx nx g @nx/node:lib mylib
+```typescript
+import { ContestFramework, ioHandlers, ParserFunction } from "contest-framework";
+
+const customParser: ParserFunction = (data: string) => 
+  data.split(",").map(Number);
+
+class Solution extends ContestFramework {
+  constructor() {
+    const { input, output } = ioHandlers["console"];
+    super(2, input, output, customParser);
+  }
+
+  protected solve(input: number[][]): unknown {
+    return input;
+  }
+}
 ```
 
-You can use `npx nx list` to get a list of installed plugins. Then, run `npx nx list <plugin-name>` to learn about more specific capabilities of a particular plugin. Alternatively, [install Nx Console](https://nx.dev/getting-started/editor-setup?utm_source=nx_project&utm_medium=readme&utm_campaign=nx_projects) to browse plugins and generators in your IDE.
+### Custom I/O Handlers
 
-[Learn more about Nx plugins &raquo;](https://nx.dev/concepts/nx-plugins?utm_source=nx_project&utm_medium=readme&utm_campaign=nx_projects) | [Browse the plugin registry &raquo;](https://nx.dev/plugin-registry?utm_source=nx_project&utm_medium=readme&utm_campaign=nx_projects)
+```typescript
+import { InputReader, OutputWriter } from "contest-framework";
 
+class CustomInputReader implements InputReader {
+  read(): string[] {
+    // Your custom input logic
+  }
+}
 
-[Learn more about Nx on CI](https://nx.dev/ci/intro/ci-with-nx#ready-get-started-with-your-provider?utm_source=nx_project&utm_medium=readme&utm_campaign=nx_projects)
+class CustomOutputWriter implements OutputWriter {
+  write(data: unknown): void {
+    // Your custom output logic
+  }
+}
 
-## Install Nx Console
+class Solution extends ContestFramework {
+  constructor() {
+    super(2, new CustomInputReader(), new CustomOutputWriter());
+  }
 
-Nx Console is an editor extension that enriches your developer experience. It lets you run tasks, generate code, and improves code autocompletion in your IDE. It is available for VSCode and IntelliJ.
+  protected solve(input: number[][]): unknown {
+    return input;
+  }
+}
+```
 
-[Install Nx Console &raquo;](https://nx.dev/getting-started/editor-setup?utm_source=nx_project&utm_medium=readme&utm_campaign=nx_projects)
+## Development
 
-## Useful links
+```bash
+# Install dependencies
+yarn install
 
-Learn more:
+# Build the project
+yarn build
 
-- [Learn more about this workspace setup](https://nx.dev/nx-api/node?utm_source=nx_project&amp;utm_medium=readme&amp;utm_campaign=nx_projects)
-- [Learn about Nx on CI](https://nx.dev/ci/intro/ci-with-nx?utm_source=nx_project&utm_medium=readme&utm_campaign=nx_projects)
-- [Releasing Packages with Nx release](https://nx.dev/features/manage-releases?utm_source=nx_project&utm_medium=readme&utm_campaign=nx_projects)
-- [What are Nx plugins?](https://nx.dev/concepts/nx-plugins?utm_source=nx_project&utm_medium=readme&utm_campaign=nx_projects)
+# Run tests
+yarn test
 
-And join the Nx community:
-- [Discord](https://go.nx.dev/community)
-- [Follow us on X](https://twitter.com/nxdevtools) or [LinkedIn](https://www.linkedin.com/company/nrwl)
-- [Our Youtube channel](https://www.youtube.com/@nxdevtools)
-- [Our blog](https://nx.dev/blog?utm_source=nx_project&utm_medium=readme&utm_campaign=nx_projects)
+# Start development server
+yarn start
+
+# Run linting
+yarn lint
+
+# Format code
+yarn format
+```
+
+## License
+
+MIT License 
