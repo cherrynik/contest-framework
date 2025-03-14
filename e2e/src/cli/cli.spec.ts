@@ -3,7 +3,7 @@ import { join } from 'path';
 
 describe('CLI tests', () => {
   it('should print a message', () => {
-    const cliPath = join(process.cwd(), 'dist/org');
+    const cliPath = join(process.cwd(), 'dist/contest-framework');
 
     const output = execSync(`node ${cliPath}`).toString();
 

@@ -1,5 +1,8 @@
 import { InputReader, OutputWriter, ParserFunction } from './types';
 import { defaultParser } from './parsers';
+import { ConsoleInputReader } from './io/readers';
+import { LINES_COUNT } from './constants';
+import { ConsoleOutputWriter } from './io/writers';
 
 export class ContestFramework {
   private linesInput: unknown[];
@@ -10,8 +13,8 @@ export class ContestFramework {
   #result: unknown;
 
   constructor(
-    inputReader: InputReader,
-    outputWriter: OutputWriter,
+    inputReader: InputReader = new ConsoleInputReader(LINES_COUNT),
+    outputWriter: OutputWriter = new ConsoleOutputWriter(),
     parser: ParserFunction = defaultParser,
     customParserPerLine: Record<number, ParserFunction> = {},
   ) {

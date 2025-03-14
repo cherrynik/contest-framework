@@ -1,22 +1,19 @@
 import { ContestFramework } from '../framework';
 import { ConsoleInputReader } from '../io/readers';
-import { defaultParser } from '../parsers';
 
 const LINES_COUNT = 1 as const;
-interface TariffInput {
-  price: number;
-  trafficInMB: number;
-  priceForExtraMB: number;
-  usedInMB: number;
-}
 
 const getAmountToPay = ({
   price,
   trafficInMB,
   priceForExtraMB,
   usedInMB,
-}: TariffInput): number =>
-  price + Math.max(usedInMB - trafficInMB, 0) * priceForExtraMB;
+}: {
+  price: number;
+  trafficInMB: number;
+  priceForExtraMB: number;
+  usedInMB: number;
+}): number => price + Math.max(usedInMB - trafficInMB, 0) * priceForExtraMB;
 
 class InternetTariffSolution extends ContestFramework {
   protected solve(input: string[][]): number {
@@ -34,11 +31,7 @@ class InternetTariffSolution extends ContestFramework {
 }
 
 const solution = new InternetTariffSolution(
-  new ConsoleInputReader(LINES_COUNT), // Console reader that will read 1 line
-  {
-    write: (result: unknown) => console.log(result),
-  },
-  defaultParser
+  new ConsoleInputReader(LINES_COUNT),
 );
 
 solution.run().catch(console.error);

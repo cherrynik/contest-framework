@@ -15,11 +15,11 @@
         "outputPath": "dist",
         "format": ["cjs"],
         "bundle": true,
-        "main": "src/solutions/sum-all-dynamic.ts",
+        "main": "src/solutions/example.ts",
         "additionalEntryPoints": [
           "src/solutions/internet-tariff.ts",
-          "src/solutions/example.ts",
-          "src/solutions/sum-all.ts"
+          "src/solutions/sum-all.ts",
+          "src/solutions/task-3.ts"
         ],
         "tsConfig": "tsconfig.app.json",
         "assets": ["src/assets"],
